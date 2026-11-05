@@ -57,10 +57,9 @@ export const startConnect = createServerFn({ method: "POST" })
       appUserId: context.userId,
       clientAPIKey: clientKey,
       returnUrl,
-      credentialsConfiguration:
-        data.connectorId === "microsoft_outlook"
-          ? { scopes: OUTLOOK_SCOPES, domain_hint: "none", prompt: "select_account" }
-          : undefined,
+      ...(data.connectorId === "microsoft_outlook"
+        ? { credentialsConfiguration: { scopes: OUTLOOK_SCOPES, domain_hint: "none", prompt: "select_account" } }
+        : {}),
     });
     return { authorizationUrl };
   });

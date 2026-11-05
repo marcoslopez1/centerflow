@@ -65,8 +65,8 @@ async function gw(connectorId: string, key: string, path: string, init?: Request
     connectionAPIKey: key,
     connectorId,
     path,
-    init,
-    requiredScopes: scopes,
+    ...(init ? { init } : {}),
+    ...(scopes ? { requiredScopes: scopes } : {}),
   });
   if (await appUserReconnectRequired(res)) throw new ReconnectError("Reconnect required");
   if (!res.ok) throw new Error(`${connectorId} request failed [${res.status}]: ${await res.text()}`);
@@ -181,7 +181,7 @@ export async function syncUser(userId: string) {
               url: it.url,
               due_at: it.due_at,
               status,
-              completed_at: status === "done" && prev.status !== "done" ? now : undefined,
+              ...(status === "done" && prev.status !== "done" ? { completed_at: now } : {}),
               updated_at: now,
             })
             .eq("id", prev.id);
