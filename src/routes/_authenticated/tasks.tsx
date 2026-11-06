@@ -208,9 +208,9 @@ function TaskCard({
           {idx > 0 && (
             <button
               type="button"
-              title={`Move to ${STATUSES[idx - 1].label}`}
+              title={`Move to ${STATUSES[idx - 1]!.label}`}
               className="state-layer rounded-full p-1 text-muted-foreground"
-              onClick={() => onMove(task.id, ORDER[idx - 1])}
+              onClick={() => onMove(task.id, ORDER[idx - 1]!)}
             >
               <ChevronLeft className="size-4" />
             </button>
@@ -218,9 +218,9 @@ function TaskCard({
           {idx < ORDER.length - 1 && (
             <button
               type="button"
-              title={`Move to ${STATUSES[idx + 1].label}`}
+              title={`Move to ${STATUSES[idx + 1]!.label}`}
               className="state-layer rounded-full p-1 text-muted-foreground"
-              onClick={() => onMove(task.id, ORDER[idx + 1])}
+              onClick={() => onMove(task.id, ORDER[idx + 1]!)}
             >
               <ChevronRight className="size-4" />
             </button>
